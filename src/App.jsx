@@ -15,15 +15,7 @@ import {
   // Ring,
   useHelper,
 } from "@react-three/drei";
-// import FlatEarth from "./assets/FlatEarth.jpg";
-// import Mars from "./assets/Mars.jpg";
-// import Venus from "./assets/Venus.jpg";
-// import Saturn from "./assets/Saturn.jpg";
-// import Pluto from "./assets/Pluto.jpg";
-// import Em from "./assets/Em.png";
-// import Neptune from "./assets/Neptune.jpg";
-// import Mercury from "./assets/Mercury.jpg";
-// import Jupiter from "./assets/Jupiter.jpg";
+
 
 import Planets from "./components/Planets/Planets";
 
@@ -97,10 +89,6 @@ const App = () => {
         }}
         style={{ width: "100vw", height: "100vh", background: "#111" }}
       >
-        {/* <Helper /> */}
-        {/* <Sphere>
-        <meshStandardMaterial color="#d0a0cd" />
-      </Sphere> */}
         <Stars
           radius={100}
           depth={50}
@@ -108,11 +96,11 @@ const App = () => {
           //  fade
           speed={2}
         />
-        {/* <Ring position={[0, 0, 0]} raidus={5} color="red" /> */}
         {shake && <CameraShake {...config} />}
         <Bounds fit clip observe margin={1.2}>
-          {/* <directionalLight intensity={1} position={[0, 4, 5]} /> */}
-          <poin intensity={1} position={[0, 0, 0]} />
+          <pointLight intensity={1} position={[0, 0, 0]} />
+          {/* <directionalLight intensity={1} position={[0, 1, 0]} /> */}
+          {/* <directionalLight intensity={1} position={[0, -1, 0]} /> */}
           <SelectToZoom>
             <Planets />
             <SpaceShip
@@ -135,8 +123,7 @@ const App = () => {
           />
         )}
 
-        {/* <RandomizedLight frames={1} color={["green", "blue", "yellow"]} /> */}
-        {/* <OrbitControls /> */}
+       
 
         <OrbitControls
           makeDefault

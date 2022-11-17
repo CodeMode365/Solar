@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   Mercury,
   Venus,
@@ -11,8 +11,13 @@ import {
   Jupiter,
   Saturn,
 } from "../../assets/Planets";
+import { useHelper } from "@react-three/drei";
 import Planet from "./Planet";
-const Planets = () => {
+import { PointLightHelper } from "three";
+const Planets = () => { 
+  const lit = useRef();
+  useHelper(lit, PointLightHelper);
+  console.log(lit)
   let posX = 10;
   const data = [Mercury, Venus, Earth, Mars, Jupiter, Saturn, Neptune, Uranus];
   return (
@@ -27,9 +32,11 @@ const Planets = () => {
             Position={[posX, 0, posX]}
             speed={0.008}
             key={index}
+            sha
           />
         );
       })}
+      <pointLight intensity={1} position={[0, 0, 0]} ref={lit} />
       <Planet
         texture={Sun}
         size={[1, 64, 64]}
