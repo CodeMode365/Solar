@@ -16,23 +16,9 @@ import {
   useHelper,
 } from "@react-three/drei";
 
-
 import Planets from "./components/Planets/Planets";
 
 import { AmbientLight, PointLightHelper } from "three";
-
-const config = {
-  maxYaw: 0.1, // Max amount camera can yaw in either direction
-  maxPitch: 0.1, // Max amount camera can pitch in either direction
-  maxRoll: 0.1, // Max amount camera can roll in either direction
-  yawFrequency: 0.1, // Frequency of the the yaw rotation
-  pitchFrequency: 0.1, // Frequency of the pitch rotation
-  rollFrequency: 0.1, // Frequency of the roll rotation
-  intensity: 1, // initial intensity of the shake
-  decay: true, // should the intensity decay over time
-  decayRate: 0.65, // if decay = true this is the rate at which intensity will reduce at
-  controls: undefined, // if using orbit controls, pass a ref here so we can update the rotation
-};
 
 const App = () => {
   // useHelper(light, PointLightHelper);
@@ -90,27 +76,23 @@ const App = () => {
         style={{ width: "100vw", height: "100vh", background: "#111" }}
       >
         <Stars
-          radius={100}
-          depth={50}
-          factor={4}
+          radius={1000}
+          depth={350}
+          factor={25}
           //  fade
           speed={2}
         />
-        {shake && <CameraShake {...config} />}
         <Bounds fit clip observe margin={1.2}>
-          <pointLight intensity={1} position={[0, 0, 0]} />
-          {/* <directionalLight intensity={1} position={[0, 1, 0]} /> */}
-          {/* <directionalLight intensity={1} position={[0, -1, 0]} /> */}
           <SelectToZoom>
             <Planets />
             <SpaceShip
               Scale={0.75}
-              Pos={[-5, 0, -12]}
+              Pos={[20, 15, 12]}
               pColor={"green"}
               sColor={"orange"}
             />
-            <SpaceShip Scale={0.75} Pos={[5, 0, -12]} />
-            <SpaceShip Scale={2} Pos={[0, 7, -12]} />
+            <SpaceShip Scale={2} Pos={[0, 15, 0]} />
+            <SpaceShip Scale={0.75} Pos={[-20, 15, -12]} />
           </SelectToZoom>
         </Bounds>
         {day && (
@@ -119,11 +101,8 @@ const App = () => {
             sunPosition={[0, 1, 0]}
             inclination={0}
             azimuth={0.25}
-            // {...props}
           />
         )}
-
-       
 
         <OrbitControls
           makeDefault

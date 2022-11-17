@@ -1,6 +1,6 @@
 import { useFrame, useLoader } from "@react-three/fiber";
 import React, { useRef } from "react";
-import { TextureLoader } from "three";
+import { MeshBasicMaterial, TextureLoader } from "three";
 
 const Planet = ({ texture, Position, size, speed, Scale }) => {
   const colorMap = useLoader(TextureLoader, texture);
@@ -11,12 +11,11 @@ const Planet = ({ texture, Position, size, speed, Scale }) => {
   return (
     <mesh ref={planet} scale={Scale} position={Position} rotation={[0, 0, 0]}>
       <sphereGeometry size={size} />
-      <meshStandardMaterial
-        attach="material"
-
-        opacity={0.7}
-        map={colorMap}
-      />
+      {texture.indexOf("Sun") > -1 ? (
+        <meshToonMaterial attach="material" opacity={0.7} map={colorMap} />
+      ) : (
+        <meshPhysicalMaterial attach="material" opacity={0.7} map={colorMap} />
+      )}
     </mesh>
   );
 };

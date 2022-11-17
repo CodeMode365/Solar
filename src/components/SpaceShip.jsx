@@ -1,5 +1,6 @@
 import React, { useRef, forwardRef, useLayoutEffect } from "react";
 import { useGLTF, Float, PivotControls } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
 
 // One-click copy/paste from the poimandres market: https://market.pmnd.rs/model/low-poly-spaceship
 const Ship = forwardRef((props, ref) => {
@@ -54,10 +55,14 @@ const Ship = forwardRef((props, ref) => {
   );
 });
 
-const SpaceShip = ({ Pos,Scale }) => {
+const SpaceShip = ({ Pos, Scale }) => {
   const ship = useRef();
+  useFrame(() => {
+    ship.current.position.z += 0.04;
+  });
   return (
-    <Float scale={Scale} position={Pos} rotation={[0, 0.6, 0]}>
+    <Float scale={Scale} position={Pos} ref={ship} rotation={[0, 0, 0]}>
+      {/* <pointLight intentisy={0.02} /> */}
       <PivotControls
         anchor={[0, 0.7, 0.09]}
         depthTest={true}
@@ -69,5 +74,4 @@ const SpaceShip = ({ Pos,Scale }) => {
     </Float>
   );
 };
-
 export default SpaceShip;
