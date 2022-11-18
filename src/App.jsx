@@ -10,13 +10,9 @@ import {
   Bounds,
   useBounds,
   useHelper,
-  Sparkles,
   Text,
 } from "@react-three/drei";
-
 import Planets from "./components/Planets/Planets";
-
-import { AmbientLight, PointLightHelper } from "three";
 
 const TextFaceCamera = () => {
   const text = useRef();
@@ -48,11 +44,10 @@ const App = () => {
       <Buttons day={day} setDay={setDay} shake={shake} setShake={setShake} />
       <Canvas
         camera={{
-          position: [-2, 10, 0],
+          position: [30, 30, 150],
           fov: 75,
           far: 1000,
           near: 0.1,
-          rotation: ["100deg", "40deg", 0],
         }}
         style={{ width: "100vw", height: "100vh", background: "#111" }}
       >
@@ -66,7 +61,14 @@ const App = () => {
         <Bounds fit clip observe margin={1.2}>
           <SelectToZoom>
             <Planets />
-            <SpaceShips />
+            {/* <SpaceShips /> */}
+
+            {/* <lineDashedMaterial/>
+            <ellipseCurve args={[   0,0,
+      100, 100, 
+      0, 2.0 * Math.PI, 
+      false]}/> */}
+
             <TextFaceCamera />
           </SelectToZoom>
         </Bounds>
