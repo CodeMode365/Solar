@@ -1,70 +1,51 @@
 import React, { useRef } from "react";
 import * as THREE from "three";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
-import SpaceShip from "./components/SpaceShip";
+import Buttons from "./components/Buttons";
+import SpaceShips from "./components/Ships/SpaceShips";
 import {
-  Sphere,
   OrbitControls,
   Stars,
-  Cloud,
-  RandomizedLight,
   Sky,
-  CameraShake,
   Bounds,
   useBounds,
-  // Ring,
   useHelper,
+  Sparkles,
+  Text,
 } from "@react-three/drei";
 
 import Planets from "./components/Planets/Planets";
 
 import { AmbientLight, PointLightHelper } from "three";
 
+const TextFaceCamera = () => {
+  const text = useRef();
+  useFrame(({ camera }) => {
+    text.current.quaternion.copy(camera.quaternion);
+  });
+  return (
+    <Text
+      ref={text}
+      color={"#aaaaaa"}
+      scale={100}
+      position={[0, 55, 0]}
+      anchorX="center"
+      anchorY="middle"
+    >
+      {` Hello to the Solar ${"   "} \nWorld of BitByte`}
+    </Text>
+  );
+};
+
 const App = () => {
   // useHelper(light, PointLightHelper);
   const [day, setDay] = React.useState(false);
   const [shake, setShake] = React.useState(true);
+  //text face the camera
 
   return (
     <>
-      <button
-        style={{
-          position: "absolute",
-          top: 15,
-          left: 15,
-          width: "90px",
-          height: "30px",
-          borderRadius: "20px",
-          background: "red",
-          zIndex: 100,
-          color: "white",
-          border: "none",
-          backgroundImage: "linear-gradient(30deg,red,blue)",
-          cursor: "pointer",
-        }}
-        onClick={() => setDay(!day)}
-      >
-        {day ? "Day view" : "Night view"}
-      </button>
-      <button
-        style={{
-          position: "absolute",
-          top: 15,
-          left: 125,
-          width: "70px",
-          height: "30px",
-          borderRadius: "20px",
-          background: "red",
-          zIndex: 101,
-          color: "white",
-          border: "none",
-          backgroundImage: "linear-gradient(30deg,red,blue)",
-          cursor: "pointer",
-        }}
-        onClick={() => setShake(!shake)}
-      >
-        {shake ? "Shake" : "Move Around"}
-      </button>
+      <Buttons day={day} setDay={setDay} shake={shake} setShake={setShake} />
       <Canvas
         camera={{
           position: [-2, 10, 0],
@@ -85,19 +66,13 @@ const App = () => {
         <Bounds fit clip observe margin={1.2}>
           <SelectToZoom>
             <Planets />
-            <SpaceShip
-              Scale={0.75}
-              Pos={[20, 15, 12]}
-              pColor={"green"}
-              sColor={"orange"}
-            />
-            <SpaceShip Scale={2} Pos={[0, 15, 0]} />
-            <SpaceShip Scale={0.75} Pos={[-20, 15, -12]} />
+            <SpaceShips />
+            <TextFaceCamera />
           </SelectToZoom>
         </Bounds>
         {day && (
           <Sky
-            distance={450}
+            distance={450000}
             sunPosition={[0, 1, 0]}
             inclination={0}
             azimuth={0.25}

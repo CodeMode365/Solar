@@ -29,9 +29,8 @@ const Planets = () => {
             size={[1, 64, 64]}
             Scale={3}
             Position={[0, 0, posX]}
-            speed={0.008}
+            speed={0.004}
             key={index}
-            sha
           />
         );
       })}
@@ -42,7 +41,7 @@ const Planets = () => {
         size={[1, 64, 64]}
         Scale={15}
         Position={[0, 0, 0]}
-        speed={0.008}
+        speed={0.005}
       />
       {/* <Planet
         texture={Moon}
